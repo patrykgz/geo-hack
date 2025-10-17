@@ -11,6 +11,11 @@ import re
 logging.basicConfig()
 logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=st.secrets.get("OPENAI_API_KEY") or "",
+)
+
 st.set_page_config(
     page_title="Brand Configuration",
     page_icon="👋",
@@ -177,12 +182,9 @@ if generate_btn or save_without_description:
                         st.error("OpenAI API key not configured. Please add your API key to .streamlit/secrets.toml")
                         st.stop()
 
-                    # Initialize OpenAI client
-                    client = OpenAI(api_key=api_key)
-
                     # Call OpenAI API
                     response = client.chat.completions.create(
-                        model="gpt-5",
+                        model="x-ai/grok-4-fast",
                         messages=[
                             {
                                 "role": "system",
