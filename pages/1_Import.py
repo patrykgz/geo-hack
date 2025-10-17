@@ -4,8 +4,9 @@ import numpy as np
 from sqlalchemy import text
 import pandas as pd
 
-conn = st.connection('data_db', type='sql')
-
+conn = st.connection('data_db', type='sql', connect_args={
+    "auth_token": st.secrets.get('TURSO_DB_KEY'),
+},)
 with conn.session as s:
     # ICP Table - Extended with role, goals, challenges
     s.execute(text('CREATE TABLE IF NOT EXISTS icp_personas (name TEXT PRIMARY KEY, role TEXT, goals TEXT, challenges TEXT);'))

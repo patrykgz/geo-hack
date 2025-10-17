@@ -10,5 +10,6 @@ dependencies = [
     "openai>=1.58.1",
     "requests>=2.32.3",
     "sqlalchemy>=2.0.44",
+    "sqlalchemy-libsql>=0.2.0",
     "streamlit>=1.50.0",
 ]

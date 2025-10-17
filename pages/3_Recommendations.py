@@ -5,7 +5,9 @@ from datetime import datetime
 from openai import OpenAI
 
 # Database connection
-conn = st.connection('data_db', type='sql')
+conn = st.connection('data_db', type='sql', connect_args={
+    "auth_token": st.secrets.get('TURSO_DB_KEY'),
+},)
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",

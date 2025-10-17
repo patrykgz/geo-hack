@@ -17,8 +17,9 @@ st.set_page_config(
 )
 
 # Database connection
-conn = st.connection('data_db', type='sql')
-
+conn = st.connection('data_db', type='sql', connect_args={
+    "auth_token": st.secrets.get('TURSO_DB_KEY'),
+},)
 # Initialize database table
 with conn.session as s:
     s.execute(text('''

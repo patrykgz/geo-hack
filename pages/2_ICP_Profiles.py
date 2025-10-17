@@ -2,8 +2,9 @@ import streamlit as st
 from sqlalchemy import text
 import pandas as pd
 
-conn = st.connection('data_db', type='sql')
-
+conn = st.connection('data_db', type='sql', connect_args={
+    "auth_token": st.secrets.get('TURSO_DB_KEY'),
+},)
 st.set_page_config(page_title="ICP Profiles", page_icon="🎯")
 
 st.markdown("# ICP Profiles")
