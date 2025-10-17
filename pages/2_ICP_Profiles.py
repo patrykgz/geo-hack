@@ -7,6 +7,14 @@ conn = st.connection('data_db', type='sql', connect_args={
 },)
 st.set_page_config(page_title="ICP Profiles", page_icon="🎯")
 
+# Authentication check
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.warning("🔒 Please log in from the main page to access this application.")
+    st.stop()
+
 st.markdown("# ICP Profiles")
 st.markdown("Build and manage your Ideal Customer Profile personas")
 

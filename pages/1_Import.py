@@ -21,6 +21,14 @@ with conn.session as s:
 
 st.set_page_config(page_title="Import", page_icon="🌍")
 
+# Authentication check
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.warning("🔒 Please log in from the main page to access this application.")
+    st.stop()
+
 st.markdown("# Import")
 
 # Show current database status

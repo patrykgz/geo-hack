@@ -21,6 +21,28 @@ st.set_page_config(
     page_icon="👋",
 )
 
+# Authentication check
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("🔒 Authentication Required")
+    st.markdown("Please enter the password to access this application.")
+
+    with st.form("login_form"):
+        password_input = st.text_input("Password", type="password", placeholder="Enter password")
+        submit_button = st.form_submit_button("Login", type="primary")
+
+        if submit_button:
+            if password_input == st.secrets.get("APP_PASSWORD", ""):
+                st.session_state.authenticated = True
+                st.success("Authentication successful!")
+                st.rerun()
+            else:
+                st.error("Incorrect password. Please try again.")
+
+    st.stop()
+
 # Database connection
 conn = st.connection('data_db', type='sql', connect_args={
     "auth_token": st.secrets.get('TURSO_DB_KEY'),
